@@ -1,71 +1,104 @@
-# TweetsClustering
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TweetsClustering</title>
+  </head>
+  <body>
+    <h1>TweetsClustering</h1>
+    <p>
+      Twitter provides a service for posting short messages. In practice, many
+      of the tweets are very similar to each other and can be clustered
+      together. By clustering similar tweets together, we can generate a more
+      concise and organized representation of the raw tweets, which will be very
+      useful for many Twitter-based applications (e.g., truth discovery, trend
+      analysis, search ranking, etc.)
+    </p>
 
-Twitter provides a service for posting short messages. In practice, many of the tweets are very
-similar to each other and can be clustered together. By clustering similar tweets together, we can
-generate a more concise and organized representation of the raw tweets, which will be very
-useful for many Twitter-based applications (e.g., truth discovery, trend analysis, search ranking,
-etc.)
+    <p>
+      Here, the tweets are clustered using Jaccard distance metric and K-means
+      clustering algorithm.
+    </p>
 
-Here, the tweets are clustered using Jaccard distance metric and K-means clustering algorithm.
+    <p>
+      <strong>Jaccard Distance (Explanation)</strong><br />
+      The Jaccard distance, which measures dissimilarity between two sample sets
+      (A and B). It is defined as the difference of the sizes of the union and
+      the intersection of two sets divided by the size of the union of the sets.
+      <br />
+      <code>Dist(A, B) = 1 - |A intersection B|/|A union B|</code>
+    </p>
 
-# Jaccard Distance
+    <p>
+      For example, consider the following tweets:<br />
+      <em
+        >Tweet A: the long march<br />
+        Tweet B: ides of march</em
+      >
+    </p>
 
-The Jaccard distance, which measures dissimilarity between two sample sets (A and B). It is
-defined as the difference of the sizes of the union and the intersection of two sets divided by the
-size of the union of the sets. <br />
-Dist(A, B) = 1 - |A intersection B|/|A union B|
+    <p>
+      |A intersection B | = 1 and |A union B | = 5, therefore the distance is 1
+      – (1/5)
+    </p>
 
-For example, consider the following tweets: <br />
-Tweet A: the long march <br />
-Tweet B: ides of march <br />
-|A intersection B | = 1 and |A union B | = 5, therefore the distance is 1 – (1/5)
+    <p>
+      <strong
+        >Jaccard Distance Dist(A, B) between tweet A and B has the following
+        properties:</strong
+      ><br />
+      1. It is small if tweet A and B are similar.<br />
+      2. It is large if they are not similar.<br />
+      3. It is 0 if they are the same.<br />
+      4. It is 1 if they are completely different (i.e., no overlapping words).
+    </p>
 
-Jaccard Distance Dist(A, B) between tweet A and B has the following properties:
-1. It is small if tweet A and B are similar.
-2. It is large if they are not similar.
-3. It is 0 if they are the same.
-4. It is 1 if they are completely different (i.e., no overlapping words).
+    <p>
+      <strong>Dataset:</strong>
+      <a href="https://archive.ics.uci.edu/ml/datasets/Health+News+in+Twitter"
+        >https://archive.ics.uci.edu/ml/datasets/Health+News+in+Twitter</a
+      >
+    </p>
 
-# Dataset Used
+    <p><strong>Main steps:</strong> Tweets Preprocessing:</p>
 
-https://archive.ics.uci.edu/ml/datasets/Health+News+in+Twitter
+    <ul>
+      <li>tweet ids and timestamps are removed.</li>
+      <li>
+        words that start with the symbol '@', e.g., @AnnaMedaris, are removed.
+      </li>
+      <li>
+        hashtag symbols are removed, e.g., #depression is converted to
+        depression.
+      </li>
+      <li>any URL is removed.</li>
+      <li>every word is converted to lowercase.</li>
+    </ul>
 
-# Tweets Preprocessing
+    <p>
+      <strong>K-Means Clustering Algorithm</strong><br />
+      K-means clustering algorithm is implemented from scratch, without using
+      any machine learning libraries.
+    </p>
 
-Firstly, the tweets are preprocessed using the following steps:
-- tweet ids and timestamps are removed
-- words that starts with the symbol '@', e.g., @AnnaMedaris, are removed
-- hashtag symbols are removed, e.g., #depression is converted to depression
-- any URL are removed
-- every word is converted to lowercase
+    <ol>
+      <li>
+        The code uses "bbchealth.txt" by default for the tweets data. - A user
+        can change the url path to another data file as desired from the given
+        files.
+      </li>
+      <li>
+        The code uses, "3 clusters" by default and performs "5 experiments" one
+        after another.
+      </li>
+      <li>
+        User can change the default value of initial clusters (k) and the number
+        of experiments to be performed.
+      </li>
+      <li>
+        The program returns the value of SSE (sum of squared error) and the size
+        of each cluster after every experiment (plotted).
+      </li>
+    </ol>
 
-# K-Means Clustering Algorithm
-
-K-means clustering algorithm is implemented from scratch, without using any machine learning libraries
-
-Output results on one of the datasets is provided in "Report.pdf".
-
-# Steps To Run
-
-1) If the system don't have python Installed in it, first install python (version greater than or equal v3.7)
-	- https://www.python.org/downloads/
-2) The code uses the following python native libraries
-        - random
-	- re
-	- math
-3) In the root directory of the project, execute the given command from command line:
-	- "python main.py"
-
-4) Output from a sample run is also stored in a file named "output.txt" for the reference.
-
-Notes :
- a) The code uses "bbchealth.txt" by default for the tweets data.
-	- A user can change the url path to another data file as desired from the given files.
-
- b) The code uses, "3 clusters" by default and performs "5 experiments" one after another.
-	- Each experiment increases the number of clusters being used from the previous experiment by 1.
-	- A user can change the default value of intial clusters (k) and number of experiments to be performed.
-
- c) The program returns the value of SSE (sum of squared error) and size of each cluster after every experiment.
-
- d) A user can also print tweets in each cluster by uncommenting certain part of code written in the __main__.
+  </body>
+</html>
